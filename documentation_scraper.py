@@ -2,6 +2,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 import html2text
+import streamlit as st
 
 def fetch_documentation_pages(base_url):
     index_page = requests.get(base_url)
@@ -24,8 +25,15 @@ def save_markdown_files(doc_links, base_url, output_dir):
             file.write(markdown)
 
 if __name__ == '__main__':
-    BASE_URL = 'https://aider.chat'
-    DOCS_URL = BASE_URL + '/docs/'
-    OUTPUT_DIR = 'documentation'
-    doc_links = fetch_documentation_pages(DOCS_URL)
-    save_markdown_files(doc_links, BASE_URL, OUTPUT_DIR)
+    st.title('Documentation Scraper')
+    base_url = st.text_input('Base URL', 'https://aider.chat')
+    output_dir = st.text_input('Output Directory', 'documentation')
+    scrape_button = st.button('Start Scraping')
+
+    if scrape_button:
+        with st.spinner('Fetching documentation pages...'):
+            doc_links = fetch_documentation_pages(base_url + '/docs/')
+        with st.spinner('Saving Markdown files...'):
+            save_markdown_files(doc_links, base_url, output_dir)
+        st.success('Scraping completed!')
+        st.write(f'Markdown files are saved in the `{output_dir}` directory.')
