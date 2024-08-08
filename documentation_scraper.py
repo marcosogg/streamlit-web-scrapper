@@ -13,7 +13,6 @@ def fetch_documentation_pages(base_url):
     return list(set(doc_links))  # Remove duplicates
 
 
-def save_markdown_files(doc_links, base_url, output_dir):
 def save_markdown_files(doc_links, base_url, output_dir, file_name):
     converter = html2text.HTML2Text()
     converter.ignore_links = False
@@ -25,8 +24,6 @@ def save_markdown_files(doc_links, base_url, output_dir, file_name):
     file_name_with_extension = file_name + ".md"
     with open(os.path.join(output_dir, file_name_with_extension), "w") as file:
         file.write(markdown)
-        with open(os.path.join(output_dir, file_name), "w") as file:
-            file.write(markdown)
 
 
 if __name__ == "__main__":
