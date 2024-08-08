@@ -39,8 +39,8 @@ if __name__ == "__main__":
         with st.spinner("Fetching documentation pages..."):
             doc_links = fetch_documentation_pages(base_url + "/docs/")
         with st.spinner("Saving Markdown files..."):
-            save_markdown_files(doc_links, base_url, output_dir, file_name)
+            file_name_with_extension = save_markdown_files(doc_links, base_url, output_dir, file_name)
         st.success("Scraping completed!")
         st.write(
-            f"Markdown file `{file_name_with_extension}` is saved in the `{output_dir}` directory."
+            f"Markdown file `{file_name}.md` is saved in the `{output_dir}` directory."
         )
