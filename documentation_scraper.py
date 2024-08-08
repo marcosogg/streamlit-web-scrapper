@@ -18,7 +18,9 @@ def save_markdown_files(doc_links, base_url, output_dir, file_name):
     converter.ignore_links = False
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    page = requests.get(base_url + doc_links[0])  # Assuming only one documentation page for simplicity
+    page = requests.get(
+        base_url + doc_links[0]
+    )  # Assuming only one documentation page for simplicity
     soup = BeautifulSoup(page.content, "html.parser")
     markdown = converter.handle(str(soup))
     file_name_with_extension = file_name + ".md"
@@ -39,4 +41,6 @@ if __name__ == "__main__":
         with st.spinner("Saving Markdown files..."):
             save_markdown_files(doc_links, base_url, output_dir, file_name)
         st.success("Scraping completed!")
-        st.write(f"Markdown file `{file_name_with_extension}` is saved in the `{output_dir}` directory.")
+        st.write(
+            f"Markdown file `{file_name_with_extension}` is saved in the `{output_dir}` directory."
+        )
